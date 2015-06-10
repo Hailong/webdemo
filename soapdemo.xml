@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<definitions xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://www.teslamotors.com/webdemo" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.teslamotors.com/webdemo">
+<types>
+<xsd:schema targetNamespace="http://www.teslamotors.com/webdemo"
+>
+ <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+ <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+</xsd:schema>
+</types>
+<message name="demo.helloRequest">
+  <part name="who" type="xsd:string" />
+  <part name="how" type="xsd:string" /></message>
+<message name="demo.helloResponse">
+  <part name="return" type="xsd:string" /></message>
+<message name="demo.getUsernameRequest">
+  <part name="id" type="xsd:int" /></message>
+<message name="demo.getUsernameResponse">
+  <part name="return" type="xsd:string" /></message>
+<portType name="webdemoPortType">
+  <operation name="demo.hello">
+    <documentation>Say hello</documentation>
+    <input message="tns:demo.helloRequest"/>
+    <output message="tns:demo.helloResponse"/>
+  </operation>
+  <operation name="demo.getUsername">
+    <documentation>Query username</documentation>
+    <input message="tns:demo.getUsernameRequest"/>
+    <output message="tns:demo.getUsernameResponse"/>
+  </operation>
+</portType>
+<binding name="webdemoBinding" type="tns:webdemoPortType">
+  <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="demo.hello">
+    <soap:operation soapAction="http://www.teslamotors.com/webdemo#hello" style="rpc"/>
+    <input><soap:body use="encoded" namespace="http://www.teslamotors.com/webdemo" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+    <output><soap:body use="encoded" namespace="http://www.teslamotors.com/webdemo" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+  </operation>
+  <operation name="demo.getUsername">
+    <soap:operation soapAction="http://www.teslamotors.com/webdemo#hello" style="rpc"/>
+    <input><soap:body use="encoded" namespace="http://www.teslamotors.com/webdemo" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+    <output><soap:body use="encoded" namespace="http://www.teslamotors.com/webdemo" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+  </operation>
+</binding>
+<service name="webdemo">
+  <port name="webdemoPort" binding="tns:webdemoBinding">
+    <soap:address location="http://localhost:8080/hello_soap.php"/>
+  </port>
+</service>
+</definitions>
